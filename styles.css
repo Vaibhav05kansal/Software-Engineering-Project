@@ -4,32 +4,117 @@
   text-align: center;
 }
 
- .dice {
-  text-align: center;
+.dice {
   display: inline-block;
-
+  margin: 20px;
 }
 
 body {
-  background-color: #393E46;
+  position: relative; /* Make body relative for absolute positioning of stars */
+  overflow: hidden; /* Hide overflowing stars */
+  background-color: black; /* Set background color */
 }
 
- h1 {
+/* Twinkling stars background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 1%, rgba(0, 0, 0, 0) 50%);
+  z-index: -1;
+  animation: dazzlingStars 10s linear infinite; /* Adjust animation duration as needed */
+}
+
+/* Animation for dazzling stars */
+@keyframes dazzlingStars {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  opacity: 0.5; /* Set initial opacity */
+  animation: flicker 1s infinite alternate; /* Flickering animation */
+}
+
+/* Randomly position stars */
+.star:nth-child(1) {
+  top: 20%;
+  left: 20%;
+}
+
+.star:nth-child(2) {
+  top: 40%;
+  left: 50%;
+}
+
+.star:nth-child(3) {
+  top: 60%;
+  left: 80%;
+}
+
+.star:nth-child(4) {
+  top: 80%;
+  left: 30%;
+}
+
+.star:nth-child(5) {
+  top: 90%;
+  left: 70%;
+}
+
+/* Flickering animation */
+@keyframes flicker {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+h1 {
   margin: 30px;
   font-family: 'Lobster', cursive;
   text-shadow: 5px 0 #232931;
-  font-size: 8rem;
-  color: #4ECCA3;
-}  
+  font-size: 4rem; /* Adjusted font size */
+  color: #fff;
+}
 
- p {
+p {
   font-size: 2rem;
-  color: #4ECCA3;
+  color: #fff;
   font-family: 'Indie Flower', cursive;
 }
 
 img {
-  width: 80%;
+  width: 150px; /* Adjusted width for dice images */
+  height: 150px; /* Adjusted height for dice images */
+  display: block;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Add animations */
+@keyframes roll {
+  0% { transform: rotateY(0); }
+  100% { transform: rotateY(360deg); }
+}
+
+.dice.roll img {
+  animation: roll 1s ease-in-out infinite;
 }
 
 footer {
@@ -37,5 +122,4 @@ footer {
   color: #EEEEEE;
   text-align: center;
   font-family: 'Indie Flower', cursive;
-
-} 
+}
